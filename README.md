@@ -1,2 +1,694 @@
-# adanavaliligi
-Web Sitesi
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T.C. Adana Valiliği - Roblox RP Portalı</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FFFFFF;
+            --text-color: #000000;
+            --primary-red: #D6001C;
+            --dark-red: #8B0000;
+            --border-grey: #CCCCCC;
+            --dark-grey: #1A1A1A;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            background-image: 
+                linear-gradient(135deg, rgba(214, 0, 28, 0.04) 25%, transparent 25%), 
+                linear-gradient(225deg, rgba(214, 0, 28, 0.04) 25%, transparent 25%), 
+                linear-gradient(45deg, rgba(0, 0, 0, 0.03) 25%, transparent 25%), 
+                linear-gradient(315deg, rgba(0, 0, 0, 0.03) 25%, rgba(255,255,255,1) 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+        }
+
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #0b0b0b;
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .splash-content {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            border: 2px solid var(--primary-red);
+            padding: 40px 25px;
+            background: #141414;
+            box-shadow: 0 0 40px rgba(214, 0, 28, 0.3);
+            position: relative;
+        }
+
+        .splash-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .splash-logo-card {
+            width: 110px;
+            height: 110px;
+            background: #1e1e1e;
+            padding: 10px;
+            border-radius: 50%;
+            border: 2px solid var(--primary-red);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .splash-title {
+            font-family: 'Anton', sans-serif;
+            color: #FFFFFF;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0px var(--primary-red);
+        }
+
+        .splash-desc {
+            color: #AAAAAA;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .splash-btn {
+            background-color: var(--primary-red);
+            color: #FFFFFF;
+            border: 2px solid #000;
+            padding: 14px 35px;
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 4px 4px 0px #000;
+            text-transform: uppercase;
+        }
+
+        .splash-btn:hover {
+            background-color: #FFFFFF;
+            color: #000000;
+            box-shadow: 4px 4px 0px var(--primary-red);
+        }
+
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.94);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .login-card {
+            background: #111111;
+            border: 3px solid var(--primary-red);
+            padding: 35px 25px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 0 30px rgba(214, 0, 28, 0.5);
+            text-align: center;
+            position: relative;
+        }
+
+        .login-card::before {
+            content: "";
+            position: absolute;
+            top: -8px; left: -8px; right: -8px; bottom: -8px;
+            border: 1px dashed var(--primary-red);
+            pointer-events: none;
+        }
+
+        .login-title {
+            font-family: 'Anton', sans-serif;
+            color: #FFFFFF;
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 0px var(--primary-red);
+        }
+
+        .login-subtitle {
+            color: var(--primary-red);
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            color: #AAA;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            background: #222;
+            border: 1px solid #444;
+            color: #FFF;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(214, 0, 28, 0.6);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--primary-red);
+            color: #FFF;
+            border: 2px solid var(--dark-red);
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background-color: var(--dark-red);
+            box-shadow: 0 0 15px rgba(214, 0, 28, 0.8);
+        }
+
+        .top-header {
+            background-color: var(--primary-red);
+            padding: 15px 20px;
+            border-bottom: 5px solid #000000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .header-logo-svg {
+            height: 75px;
+            width: auto;
+            max-width: 80px;
+            filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.5));
+            transition: transform 0.2s;
+        }
+
+        .header-logo-svg:hover {
+            transform: scale(1.08);
+        }
+
+        nav {
+            background-color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--primary-red);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 14px 18px;
+            display: block;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: var(--primary-red);
+            color: #FFFFFF;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 15px;
+        }
+
+        section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #FFFFFF;
+            border: 1px solid var(--border-grey);
+            border-left: 6px solid #000000;
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.06);
+            position: relative;
+        }
+
+        section::after {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 22px 22px 0;
+            border-color: transparent var(--primary-red) transparent transparent;
+        }
+
+        h1, h2, h3 {
+            color: #000000;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        section > h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid #000000;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        p {
+            color: #000000;
+            font-weight: 300;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .styled-text {
+            font-weight: 700;
+            font-style: italic;
+            text-decoration: underline;
+            text-decoration-color: var(--primary-red);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .card {
+            border: 1px solid #000000;
+            border-left: 4px solid var(--primary-red);
+            padding: 15px;
+            background-color: #FAFAFA;
+            box-shadow: 3px 3px 0px #CCCCCC;
+        }
+
+        .atam-section {
+            text-align: center;
+            background-color: #000000;
+            color: #FFFFFF;
+            padding: 30px 20px;
+            border: 2px solid #000000;
+            outline: 2px solid var(--primary-red);
+            margin-bottom: 25px;
+        }
+
+        .atam-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            color: #FFFFFF;
+            text-shadow: 3px 3px 0px var(--primary-red);
+        }
+
+        .atam-img-container {
+            margin: 20px auto;
+            max-width: 280px;
+            border: 3px solid var(--primary-red);
+            box-shadow: 0 0 20px rgba(214, 0, 28, 0.4);
+            background: #000;
+        }
+
+        .atam-img-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .national-text {
+            white-space: pre-line;
+            background: #FFFFFF;
+            color: #000000;
+            padding: 15px;
+            border: 1px solid #000000;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 400;
+        }
+
+        .btn-submit {
+            display: inline-block;
+            background-color: var(--primary-red);
+            color: #FFFFFF;
+            padding: 14px 32px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-decoration: none;
+            border: 2px solid #000000;
+            box-shadow: 4px 4px 0px #000000;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover {
+            background-color: #000000;
+            color: #FFFFFF;
+            box-shadow: 4px 4px 0px var(--primary-red);
+        }
+
+        footer {
+            background-color: #000000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            border-top: 4px solid var(--primary-red);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logos">
+                <!-- Adana Valiliği Siyah Beyaz Logosu (Embedded SVG) -->
+                <div class="splash-logo-item">
+                    <svg class="splash-logo-card" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="95" fill="#000000" stroke="#FFFFFF" stroke-width="4"/>
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+                        <!-- Clock Tower Silhouette (Black & White) -->
+                        <path d="M 85 150 L 115 150 L 110 90 L 90 90 Z" fill="#FFFFFF"/>
+                        <path d="M 88 90 L 112 90 L 100 70 Z" fill="#FFFFFF"/>
+                        <rect x="94" y="100" width="12" height="15" fill="#000000"/>
+                        <circle cx="100" cy="80" r="5" fill="#000000"/>
+                        <text x="100" y="40" font-family="Arial" font-weight="bold" font-size="12" fill="#FFFFFF" text-anchor="middle">T.C. ADANA VALİLİĞİ</text>
+                        <text x="100" y="175" font-family="Arial" font-weight="bold" font-size="10" fill="#FFFFFF" text-anchor="middle">ROBLOX RP</text>
+                    </svg>
+                </div>
+                <!-- Larlasın Logosu (Embedded SVG) -->
+                <div class="splash-logo-item">
+                    <svg class="splash-logo-card" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="100" cy="100" r="95" fill="#D6001C" stroke="#FFFFFF" stroke-width="4"/>
+                        <path d="M 60 140 L 60 60 L 90 60 L 90 120 L 140 120 L 140 140 Z" fill="#FFFFFF"/>
+                        <polygon points="100,30 115,55 145,55 120,75 130,105 100,85 70,105 80,75 55,55 85,55" fill="#FFFFFF"/>
+                        <text x="100" y="175" font-family="Anton" font-size="16" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">LARLASIN</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="splash-title">ADANA VALİLİĞİ</div>
+            <div class="splash-desc">Roblox RP Resmi Portalı</div>
+            <button class="splash-btn" onclick="enterSite()">SİTEYE GİRİŞ YAP</button>
+        </div>
+    </div>
+
+    <div id="login-overlay">
+        <div class="login-card">
+            <div class="login-title">KİMLİK DOĞRULAMA</div>
+            <div class="login-subtitle">OYUNCU GİRİŞ PANELİ</div>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="input-group">
+                    <label>Roblox Kullanıcı Adı</label>
+                    <input type="text" placeholder="Örn: Kullanici_Adi" required>
+                </div>
+                <div class="input-group">
+                    <label>RP Rütbe / Birim</label>
+                    <input type="text" placeholder="Örn: Vali Yardımcısı / Vatandaş" required>
+                </div>
+                <button type="submit" class="login-btn">SİSTEME BAĞLAN</button>
+            </form>
+        </div>
+    </div>
+
+    <header class="top-header">
+        <!-- Cumhurbaşkanlığı Forsu (Embedded SVG) -->
+        <svg class="header-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#D6001C" stroke="#FFD700" stroke-width="2"/>
+            <polygon points="50,15 53,28 65,20 58,32 72,30 61,40 75,47 62,50 72,58 59,58 63,71 52,62 48,75 44,62 33,71 37,58 24,58 34,50 21,47 35,40 24,30 38,32 31,20 43,28" fill="#FFD700"/>
+            <circle cx="50" cy="50" r="10" fill="#FFD700"/>
+        </svg>
+
+        <!-- İçişleri Bakanlığı Logosu (Embedded SVG) -->
+        <svg class="header-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#FFFFFF" stroke="#D6001C" stroke-width="4"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#D6001C" stroke-width="1.5"/>
+            <!-- Inner Crescent and Star -->
+            <path d="M 52 35 A 12 12 0 1 0 52 55 A 15 15 0 1 1 52 35 Z" fill="#D6001C"/>
+            <polygon points="58,42 60,45 64,45 61,47 62,51 58,48 54,51 55,47 52,45 56,45" fill="#D6001C"/>
+            <text x="50" y="22" font-family="Arial" font-size="6.5" font-weight="bold" fill="#D6001C" text-anchor="middle">T.C. İÇİŞLERİ BAKANLIĞI</text>
+        </svg>
+
+        <!-- Türk Bayrağı (Embedded SVG) -->
+        <svg class="header-logo-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="80" fill="#D6001C"/>
+            <circle cx="45" cy="40" r="20" fill="#FFFFFF"/>
+            <circle cx="50" cy="40" r="16" fill="#D6001C"/>
+            <polygon points="70,40 78,43 73,49 75,57 68,52 61,57 63,49 58,43 66,43" fill="#FFFFFF"/>
+        </svg>
+
+        <!-- Adana Valiliği Logosu Renkli (Embedded SVG) -->
+        <svg class="header-logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#D6001C" stroke="#FFFFFF" stroke-width="2"/>
+            <circle cx="50" cy="50" r="40" fill="#FFFFFF"/>
+            <path d="M 42 75 L 58 75 L 55 45 L 45 45 Z" fill="#8B0000"/>
+            <path d="M 44 45 L 56 45 L 50 35 Z" fill="#D6001C"/>
+            <rect x="47" y="50" width="6" height="8" fill="#FFFFFF"/>
+            <circle cx="50" cy="40" r="2.5" fill="#FFFFFF"/>
+            <path d="M 25 75 Q 50 65 75 75 Q 50 85 25 75 Z" fill="#0080FF"/>
+            <text x="50" y="20" font-family="Arial" font-weight="bold" font-size="5.5" fill="#000000" text-anchor="middle">T.C. ADANA VALİLİĞİ</text>
+        </svg>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#anasayfa">1. Anasayfa</a></li>
+            <li><a href="#hakkinda">2. Valilik Hakkında Bilgi</a></li>
+            <li><a href="#bildiriler">3. Bildiriler</a></li>
+            <li><a href="#temeller">4. Valilik Temelleri</a></li>
+            <li><a href="#istek-sikayet">5. İstek Şikayet Formu</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <!-- 1. ANASAYFA -->
+        <section id="anasayfa">
+            <h2><span style="color:var(--primary-red);">■</span> 1. Anasayfa</h2>
+            
+            <div class="atam-section">
+                <div class="atam-title">ATAM</div>
+                
+                <!-- ATATÜRK SILHOUETTE/PORTRAIT (Embedded SVG) -->
+                <div class="atam-img-container">
+                    <svg viewBox="0 0 300 350" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="300" height="350" fill="#000000"/>
+                        <!-- Stylized Waving Turkish Flag in Background -->
+                        <path d="M 120 50 Q 200 20 280 80 Q 200 140 280 200 Q 180 230 100 180 Z" fill="#D6001C" opacity="0.8"/>
+                        <circle cx="190" cy="110" r="25" fill="#FFFFFF"/>
+                        <circle cx="197" cy="110" r="20" fill="#D6001C"/>
+                        <polygon points="215,110 221,113 218,119 222,125 215,121 209,125 211,119 207,113 213,113" fill="#FFFFFF"/>
+                        
+                        <!-- Atatürk Silhouette Art -->
+                        <path d="M 50 350 C 50 280 80 220 110 180 C 120 160 110 130 120 100 C 125 80 140 60 160 60 C 180 60 190 75 190 95 C 190 115 180 130 180 145 C 195 160 210 220 230 350 Z" fill="#1A1A1A"/>
+                        <!-- Kalpak (Hat) -->
+                        <path d="M 115 100 C 110 70 125 30 160 30 C 195 30 205 70 200 100 Z" fill="#333333" stroke="#D6001C" stroke-width="2"/>
+                        <!-- Eyes & Sharp Features -->
+                        <path d="M 145 95 Q 155 90 165 95" stroke="#0080FF" stroke-width="3" fill="none"/>
+                        <path d="M 148 115 Q 158 122 168 115" stroke="#FFFFFF" stroke-width="2" fill="none"/>
+                    </svg>
+                </div>
+
+                <p class="styled-text" style="color:#FFF;">"Türkiye Cumhuriyeti mesut, muvaffak ve muzaffer olacaktır."</p>
+            </div>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h3>İstiklal Marşı</h3>
+                    <div class="national-text">
+                        Korkma, sönmez bu şafaklarda yüzen al sancak;<br>
+                        Sönmeden yurdumun üstünde tüten en son ocak.<br>
+                        O benim milletimin yıldızıdır, parlayacak;<br>
+                        O benimdir, o benim milletimindir ancak.<br><br>
+                        Çatma, kurban olayım, çehreni ey nazlı hilâl!<br>
+                        Kahraman ırkıma bir gül! Ne bu şiddet, bu celâl?<br>
+                        Sana olmaz dökülen kanlarımız sonra helâl...<br>
+                        Hakkıdır, Hakk'a tapan, milletimin istiklâl!
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Gençliğe Hitabe</h3>
+                    <div class="national-text">
+                        Ey Türk gençliği! Birinci vazifen; Türk istiklalini, Türk cumhuriyetini, ilelebet muhafaza ve müdafaa etmektir.<br><br>
+                        Mevcudiyetinin ve istikbalinin yegâne temeli budur. Bu temel, senin en kıymetli hazinendir. İstikbalde dahi seni bu hazineden mahrum etmek isteyecek dâhili ve haricî bedhahların olacaktır...
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 25px; padding: 15px; background: #F5F5F5; border-left: 3px solid #000;">
+                <h3>Sayfa ve Site Hakkında</h3>
+                <p>Bu portal <span class="highlight">Adana Valiliği Roblox RP Sunucusu</span> bünyesinde yürütülen kamu hizmetleri, duyurular ve oyuncu etkileşimi için hazırlanmış resmi web arayüzüdür.</p>
+            </div>
+        </section>
+
+        <!-- 2. VALİLİK HAKKINDA BİLGİ -->
+        <section id="hakkinda">
+            <h2><span style="color:var(--primary-red);">■</span> 2. Valilik Hakkında Bilgi</h2>
+            
+            <div class="card-grid" style="margin-bottom: 20px;">
+                <div class="card">
+                    <h3>Vali</h3>
+                    <p class="styled-text">Vali Mert YILMAZ</p>
+                    <p>İl sınırları içerisindeki mülki idarenin başı ve en yetkili temsilcidir.</p>
+                </div>
+                <div class="card">
+                    <h3>Vali Yardımcısı</h3>
+                    <p class="styled-text">Vali Yardımcısı Kemal EROĞLU</p>
+                    <p>Kamu kurumlarının asayiş, denetim ve idari süreçlerinden sorumludur.</p>
+                </div>
+            </div>
+
+            <h3>Adana Valiliği Genel Tarihçesi</h3>
+            <p>Adana Valiliği, bölgenin tarihi mülki idare geleneklerini sürdürerek il genelinde huzur, asayiş ve kamu düzeninin teminatı olarak hizmet vermektedir.</p>
+
+            <h3 style="margin-top: 15px;">Türkiye Cumhuriyeti Valilik Yönetim Tarihçesi</h3>
+            <p>Türkiye'de valilik makamı, mülki idare sisteminin en üst kademesi olup il genelinde devlet otoritelerinin koordinasyonunu sağlayan yürütme organıdır.</p>
+        </section>
+
+        <!-- 3. BİLDİRİLER -->
+        <section id="bildiriler">
+            <h2><span style="color:var(--primary-red);">■</span> 3. Bildiriler ve Duyurular</h2>
+            
+            <div class="card-grid">
+                <div class="card">
+                    <p class="styled-text">DUYURU #01</p>
+                    <h3>İl Geneli Asayiş Uygulamaları</h3>
+                    <p>Polis ve Jandarma ekipleri tarafından il genelinde güvenlik denetimleri artırılmıştır.</p>
+                </div>
+                <div class="card">
+                    <p class="styled-text">HABER #02</p>
+                    <h3>Valilik Kabul Günü</h3>
+                    <p>Valimiz Sayın <span class="highlight">Mert YILMAZ</span> vatandaş taleplerini dinlemek üzere toplantı düzenlemiştir.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. VALİLİK TEMELLERİ -->
+        <section id="temeller">
+            <h2><span style="color:var(--primary-red);">■</span> 4. Valiliğin Temeli</h2>
+            <p>Valiliğin temel görev ve yetki alanları aşağıda belirtilmiştir:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li style="margin-bottom: 8px;"><span class="highlight">Asayiş ve Güvenlik:</span> İl genelinde kolluk kuvvetlerinin sevk ve idaresi.</li>
+                <li style="margin-bottom: 8px;"><span class="highlight">Kamu Düzeni:</span> Kanunların ve resmi emirlerin eksiksiz uygulanması.</li>
+                <li style="margin-bottom: 8px;"><span class="styled-text">İdari Denetim:</span> Kurumlar arası koordinasyonun sağlanması.</li>
+            </ul>
+        </section>
+
+        <!-- 5. VALİLİK İSTEK ŞİKAYET FORMU -->
+        <section id="istek-sikayet" style="text-align: center;">
+            <h2><span style="color:var(--primary-red);">■</span> 5. Valilik İstek ve Şikayet Formu</h2>
+            <p style="margin-bottom: 20px;">Başvuru ve taleplerinizi iletmek için aşağıdaki butona tıklayabilirsiniz.</p>
+            
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdE0hfL7kIeDCo3gn7-rVqkFvYRLJWLC2jxzpPgPS6MLjh33g/viewform?usp=publish-editor" target="_blank" rel="noopener noreferrer" class="btn-submit">
+                Başvuru Formu
+            </a>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>&copy; Adana Valiliği - Roblox RP Resmi Portalı</p>
+    </footer>
+
+    <script>
+        // Açılış ekranından Roblox giriş paneline geçiş
+        function enterSite() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => {
+                splash.style.display = 'none';
+                const loginOverlay = document.getElementById('login-overlay');
+                loginOverlay.style.display = 'flex';
+                loginOverlay.style.opacity = '1';
+            }, 500);
+        }
+
+        // Roblox giriş ekranından ana siteye geçiş
+        function handleLogin(e) {
+            e.preventDefault();
+            const loginOverlay = document.getElementById('login-overlay');
+            loginOverlay.style.opacity = '0';
+            setTimeout(() => {
+                loginOverlay.style.display = 'none';
+            }, 400);
+        }
+    </script>
+</body>
+</html>
+```
